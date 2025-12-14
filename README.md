@@ -39,29 +39,32 @@ npm run dev
 ## 🔗 Comunicação entre Microfrontends A comunicação é feita via Custom Events do navegador, permitindo comunicação desacoplada entre aplicações separadas. 
 - Exemplo no micro Cardápio:
 ```jsx
-    <button
-      type="button"
-      className={styles.botao}
-      onClick={() => {
-        const event = new CustomEvent('adicionarPedido', { detail: item });
-        window.dispatchEvent(event);
-      }}
+  <button
+      onClick={() =>
+        window.top.dispatchEvent(
+          new CustomEvent("adicionarCarrinho", {
+            detail: {
+              nome: prato.nome,
+              preco: Number(prato.preco)
+            }
+          })
+        )
+      }
     >
-      Adicionar ao pedido
-    </button>
+    +
+  </button>
 ```
 - Exemplo no micro Pedido:
 ```jsx
-    useEffect(() => {
+     useEffect(() => {
         const handler = (e) => {
-            setPedidos((prevPedidos) => [...prevPedidos, e.detail]);
+            const { nome, preco } = e.detail;
+            setItens((prev) => [...prev, e.detail]);
         };
 
-        window.addEventListener("adicionarPedido", handler);
+        window.addEventListener("adicionarCarrinho", handler);
 
-        return () => {
-            window.removeEventListener("adicionarPedido", handler);
-        };
+        return () => window.removeEventListener("adicionarCarrinho", handler);
     }, []);
 ```
 --- 
