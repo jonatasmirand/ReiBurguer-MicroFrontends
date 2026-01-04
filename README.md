@@ -1,5 +1,8 @@
 
 # 🍔 ReiBurguer – Micro Frontends + Module Federation 
+
+Projeto para testar aprendizado com Modulate Federation incluindo três Micro Frontends dividos em (container, cardápio e pedido) 
+
 > ⚠️ Não usar Next.js > 15, pois o MF não é suportado.
 Este repositório implementa uma arquitetura de Microfrontends, utilizando:
 - Next.js 14
